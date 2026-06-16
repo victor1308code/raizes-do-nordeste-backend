@@ -1,0 +1,11 @@
+package com.raizesdonordeste.backend.infrastructure;
+
+import com.raizesdonordeste.backend.domain.Pedido;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+public interface PedidoRepository extends JpaRepository<Pedido, Long> {
+    List<Pedido> findByUsuarioId(Long usuarioId);
+    List<Pedido> findByCanalPedido(Pedido.CanalPedido canalPedido);
+    List<Pedido> findByUnidadeIdAndStatus(Long unidadeId, Pedido.Status status);
+}
