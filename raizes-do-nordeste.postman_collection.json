@@ -1,0 +1,179 @@
+{
+	"info": {
+		"name": "Raizes do Nordeste - API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "T01 - Login valido",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin2@raizesdonordeste.com\",\n    \"senha\": \"Admin@123\"\n}"
+						},
+						"url": {"raw": "http://localhost:8080/auth/login", "host": ["localhost"], "port": "8080", "path": ["auth", "login"]}
+					}
+				},
+				{
+					"name": "T02 - Login com senha errada",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin2@raizesdonordeste.com\",\n    \"senha\": \"senhaerrada\"\n}"
+						},
+						"url": {"raw": "http://localhost:8080/auth/login", "host": ["localhost"], "port": "8080", "path": ["auth", "login"]}
+					}
+				},
+				{
+					"name": "T03 - Cadastro de novo usuario",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Atendente Brasilia\",\n    \"email\": \"atendente@raizesdonordeste.com\",\n    \"senha\": \"Atend@123\",\n    \"role\": \"ATENDENTE\",\n    \"consentimentoLgpd\": true\n}"
+						},
+						"url": {"raw": "http://localhost:8080/auth/cadastro", "host": ["localhost"], "port": "8080", "path": ["auth", "cadastro"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Pedidos",
+			"item": [
+				{
+					"name": "T04 - Criar pedido valido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"},
+							{"key": "Authorization", "value": "Bearer Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjJAcmFpemVzZG9ub3JkZXN0ZS5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODE3MTgzODUsImV4cCI6MTc4MTgwNDc4NX0.Te14UJ8UqdQcFf8sp9xDq1s55D15gD0YPhG7yWCFn-4NF0ik5YOj6oMtV3l47iCY"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"usuarioId\": 1,\n    \"unidadeId\": 1,\n    \"canalPedido\": \"APP\",\n    \"itens\": [\n        { \"produtoId\": 1, \"quantidade\": 1 },\n        { \"produtoId\": 3, \"quantidade\": 2 }\n    ]\n}"
+						},
+						"url": {"raw": "http://localhost:8080/pedidos", "host": ["localhost"], "port": "8080", "path": ["pedidos"]}
+					}
+				},
+				{
+					"name": "T05 - Listar pedidos por canal APP",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjJAcmFpemVzZG9ub3JkZXN0ZS5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODE3MTgzODUsImV4cCI6MTc4MTgwNDc4NX0.Te14UJ8UqdQcFf8sp9xDq1s55D15gD0YPhG7yWCFn-4NF0ik5YOj6oMtV3l47iCY"}],
+						"url": {"raw": "http://localhost:8080/pedidos?canalPedido=APP", "host": ["localhost"], "port": "8080", "path": ["pedidos"], "query": [{"key": "canalPedido", "value": "APP"}]}
+					}
+				},
+				{
+					"name": "T06 - Buscar pedido por ID",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjJAcmFpemVzZG9ub3JkZXN0ZS5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODE3MTgzODUsImV4cCI6MTc4MTgwNDc4NX0.Te14UJ8UqdQcFf8sp9xDq1s55D15gD0YPhG7yWCFn-4NF0ik5YOj6oMtV3l47iCY"}],
+						"url": {"raw": "http://localhost:8080/pedidos/3", "host": ["localhost"], "port": "8080", "path": ["pedidos", "3"]}
+					}
+				},
+				{
+					"name": "T07 - Atualizar status do pedido",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"},
+							{"key": "Authorization", "value": "Bearer Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjJAcmFpemVzZG9ub3JkZXN0ZS5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODE3MTgzODUsImV4cCI6MTc4MTgwNDc4NX0.Te14UJ8UqdQcFf8sp9xDq1s55D15gD0YPhG7yWCFn-4NF0ik5YOj6oMtV3l47iCY"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"EM_PREPARO\"\n}"
+						},
+						"url": {"raw": "http://localhost:8080/pedidos/3/status", "host": ["localhost"], "port": "8080", "path": ["pedidos", "3", "status"]}
+					}
+				},
+				{
+					"name": "T08 - Pedido com produto inexistente (erro 404)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"},
+							{"key": "Authorization", "value": "Bearer Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjJAcmFpemVzZG9ub3JkZXN0ZS5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODE3MTgzODUsImV4cCI6MTc4MTgwNDc4NX0.Te14UJ8UqdQcFf8sp9xDq1s55D15gD0YPhG7yWCFn-4NF0ik5YOj6oMtV3l47iCY"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"usuarioId\": 1,\n    \"unidadeId\": 1,\n    \"canalPedido\": \"TOTEM\",\n    \"itens\": [\n        { \"produtoId\": 999, \"quantidade\": 1 }\n    ]\n}"
+						},
+						"url": {"raw": "http://localhost:8080/pedidos", "host": ["localhost"], "port": "8080", "path": ["pedidos"]}
+					}
+				},
+				{
+					"name": "T09 - Acesso sem token (erro 401)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {"raw": "http://localhost:8080/pedidos?canalPedido=APP", "host": ["localhost"], "port": "8080", "path": ["pedidos"], "query": [{"key": "canalPedido", "value": "APP"}]}
+					}
+				},
+				{
+					"name": "T10 - Buscar pedido inexistente (erro 404)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjJAcmFpemVzZG9ub3JkZXN0ZS5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODE3MTgzODUsImV4cCI6MTc4MTgwNDc4NX0.Te14UJ8UqdQcFf8sp9xDq1s55D15gD0YPhG7yWCFn-4NF0ik5YOj6oMtV3l47iCY"}],
+						"url": {"raw": "http://localhost:8080/pedidos/999", "host": ["localhost"], "port": "8080", "path": ["pedidos", "999"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Pagamentos",
+			"item": [
+				{
+					"name": "T11 - Pagamento aprovado (PIX)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"},
+							{"key": "Authorization", "value": "Bearer Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjJAcmFpemVzZG9ub3JkZXN0ZS5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODE3MTgzODUsImV4cCI6MTc4MTgwNDc4NX0.Te14UJ8UqdQcFf8sp9xDq1s55D15gD0YPhG7yWCFn-4NF0ik5YOj6oMtV3l47iCY"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pedidoId\": 3,\n    \"formaPagamento\": \"PIX\",\n    \"simularFalha\": false\n}"
+						},
+						"url": {"raw": "http://localhost:8080/pagamentos", "host": ["localhost"], "port": "8080", "path": ["pagamentos"]}
+					}
+				},
+				{
+					"name": "T12 - Pagamento recusado (simulacao)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"},
+							{"key": "Authorization", "value": "Bearer Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbjJAcmFpemVzZG9ub3JkZXN0ZS5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODE3MTgzODUsImV4cCI6MTc4MTgwNDc4NX0.Te14UJ8UqdQcFf8sp9xDq1s55D15gD0YPhG7yWCFn-4NF0ik5YOj6oMtV3l47iCY"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pedidoId\": 3,\n    \"formaPagamento\": \"CARTAO_CREDITO\",\n    \"simularFalha\": true\n}"
+						},
+						"url": {"raw": "http://localhost:8080/pagamentos", "host": ["localhost"], "port": "8080", "path": ["pagamentos"]}
+					}
+				}
+			]
+		},
+		{
+			"name": "Produtos",
+			"item": [
+				{
+					"name": "T13 - Listar produtos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {"raw": "http://localhost:8080/produtos", "host": ["localhost"], "port": "8080", "path": ["produtos"]}
+					}
+				}
+			]
+		}
+	]
+}

@@ -24,8 +24,11 @@ public class AuthController {
             String email = (String) body.get("email");
             String senha = (String) body.get("senha");
             boolean consentimento = (Boolean) body.get("consentimentoLgpd");
+            Usuario.Role role = body.containsKey("role")
+                    ? Usuario.Role.valueOf(body.get("role").toString())
+                    : Usuario.Role.CLIENTE;
 
-            Usuario usuario = authService.cadastrar(nome, email, senha, consentimento);
+            Usuario usuario = authService.cadastrar(nome, email, senha, consentimento, role);
 
             return ResponseEntity.status(201).body(Map.of(
                     "id", usuario.getId(),
@@ -54,10 +57,7 @@ public class AuthController {
                     "tokenType", "Bearer"
             ));
         } catch (RuntimeException e) {
-            return ResponseEntity.status(401).body(Map.of(
-                    "error", e.getMessage(),
-                    "message", "E-mail ou senha inválidos."
-            ));
+            throw e;
         }
     }
 }

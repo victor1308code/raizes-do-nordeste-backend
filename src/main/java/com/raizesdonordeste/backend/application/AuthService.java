@@ -26,7 +26,7 @@ public class AuthService {
         this.jwtUtil = jwtUtil;
     }
 
-    public Usuario cadastrar(String nome, String email, String senha, boolean consentimentoLgpd) {
+    public Usuario cadastrar(String nome, String email, String senha, boolean consentimentoLgpd, Usuario.Role role) {
         if (usuarioRepository.existsByEmail(email)) {
             throw new RuntimeException("EMAIL_JA_CADASTRADO");
         }
@@ -35,7 +35,7 @@ public class AuthService {
         usuario.setNome(nome);
         usuario.setEmail(email);
         usuario.setSenha(passwordEncoder.encode(senha));
-        usuario.setRole(Usuario.Role.CLIENTE);
+        usuario.setRole(role != null ? role : Usuario.Role.CLIENTE);
         usuario.setConsentimentoLgpd(consentimentoLgpd);
 
         usuarioRepository.save(usuario);

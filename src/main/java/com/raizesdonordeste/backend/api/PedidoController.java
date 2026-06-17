@@ -46,14 +46,7 @@ public class PedidoController {
     @GetMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(pedidoService.buscarPorId(id));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(404).body(Map.of(
-                "error", e.getMessage(),
-                "message", "Pedido não encontrado."
-            ));
-        }
+        return ResponseEntity.ok(pedidoService.buscarPorId(id));
     }
 
     @GetMapping("/meus")
@@ -74,16 +67,7 @@ public class PedidoController {
             Pedido pedido = pedidoService.criar(usuarioId, unidadeId, canal, itens);
             return ResponseEntity.status(201).body(pedido);
         } catch (RuntimeException e) {
-            if (e.getMessage().equals("ESTOQUE_INSUFICIENTE")) {
-                return ResponseEntity.status(409).body(Map.of(
-                    "error", e.getMessage(),
-                    "message", "Quantidade insuficiente em estoque para um ou mais itens."
-                ));
-            }
-            return ResponseEntity.status(404).body(Map.of(
-                "error", e.getMessage(),
-                "message", "Não foi possível criar o pedido."
-            ));
+            throw e;
         }
     }
 
