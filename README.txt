@@ -120,6 +120,22 @@ PATCH http://localhost:8080/pedidos/1/status
 Ordem dos status:
 AGUARDANDO_PAGAMENTO -> PAGO -> EM_PREPARO -> PRONTO -> ENTREGUE
 
+---
+
+Passo 6 - Consultar pontos de fidelidade
+GET http://localhost:8080/fidelidade/1
+
+Retorna o saldo de pontos do usuario. Os pontos sao acumulados
+automaticamente a cada pedido (1 ponto por real gasto).
+
+---
+
+Passo 7 - Resgatar pontos
+POST http://localhost:8080/fidelidade/1/resgatar
+
+Desconta 100 pontos do saldo. Retorna erro se nao houver
+pontos suficientes.
+
 ==============================================
 COLECAO DE TESTES
 ==============================================
